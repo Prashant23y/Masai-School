@@ -1,12 +1,84 @@
+
+<!-- Create a personal biography web page using HTML. This web page should include:
+
+A title for your page in the <head> section.
+A main heading (<h1>) introducing yourself.
+Three sections (<h2> headings): "About Me," "Hobbies," and "Contact Information."
+In each section, include a paragraph describing the topic, such as who you are, what hobbies you enjoy, and how people can contact you.
+In the "Contact Information" section, create a simple form with inputs for "Name," "Email," and a "Submit" button.
+You can make bio more appealing by usinng CSS ,Try figuring out how you can implement it . -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Know About Me</title>
+
+    <style>
+        header{
+            background-color: aquamarine;
+            text-align: center;
+            color: aliceblue;
+            border-radius: 10px;
+        }
+
+        section{
+            text-align: center;
+            background-color: rgba(119, 235, 235, 0.155);
+            color: antiquewhite;
+            border-radius: 5px;
+        }
+
+        h2{
+            color: bisque;
+        }
+    </style>
 </head>
 <body>
-    <h1>hello world</h1>
+    <header>
+        <h1>Hello, I am Prashant Kumar</h1>
+            <p>
+            I am currently studying in Masai School where 
+            I am learning about full stack web development.
+            </p>
+    </header>
+    
+    <main>
+        <section>
+            <h2>About me</h2>
+            <p> 
+                I am a passionate and curious coding enthusiast, currently diving deep into web development and expanding my skills every day. 
+                I approach challenges calmly and confidently, both in life and in learning, with patience that helps me solve problems without
+                frustration. My goal is to become a successful web developer and eventually launch my own tech company. To prepare for that journey,
+                I aim to first gain real-world experience working in the IT industry, so I can understand the challenges and opportunities involved
+                in building and running a startup. 
+            </p>
+        </section>
+    
+        <section>
+            <h2>Hobbies</h2>
+            <p>  
+                I enjoy playing cricket and chess—cricket helps me stay physically active and healthy, while chess sharpens my focus, strategic thinking,
+                and decision-making skills. In my free time, I love watching movies and listening to music as a way to relax and refresh my mind. Back during
+                my intermediate studies, I had a strong habit of reading biographies and informative articles to gain knowledge. Although I stepped away from 
+                that habit for a while, I’m now planning to get back into reading and make it a part of my routine again.
+            </p>
+        </section>
+
+        <section>
+            <h2>Contact Information</h2>
+            <p>
+                Name: Prashant Kumar <br>
+                Email: 23y.prashant@gmail.com <br>
+                LinkedIn: For connect with me on Linkdin <a href="https://www.linkedin.com/in/prashant-kumar-577140337/">click here</a> <br>
+                GitHub: You can also check my project on <a href="https://github.com/Prashant23y">GitHub</a> <br>
+                
+                Feel free to reach out for opportunities or just a tech chat. I’m always open to learning and connecting!
+            </p>
+        </section>
+        
+    </main>
+    
 </body>
 </html>
