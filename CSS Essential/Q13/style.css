@@ -1,0 +1,26 @@
+/* <!-- Create an HTML webpage that uses both ID selectors and the universal selector to achieve the following styling:
+
+Use the universal selector to remove all default margin and padding across all elements.
+Create an h1 element with an id="main-title" and apply styles to make the font size 32px, text color dark blue, and center the text.
+Create an h2 element with an id="subtitle" and apply styles to make the font size 24px and text color dark green.
+Add a few paragraphs with text. Apply padding and a soft border color to each paragraph. --> */
+
+*{
+    margin: 0%;
+    padding: 0%;
+}
+#main-title{
+    font-size: 32px;
+    color: darkblue;
+    text-align: center;
+}
+
+#subtitle{
+    font-size: 24px;
+    color: darkgreen;
+}
+
+p{
+    padding: 5%;
+    border-color: rgba(10, 93, 88, 0.612);
+}

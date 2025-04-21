@@ -1,0 +1,17 @@
+body{
+    background-color: lightgray;
+}
+h1{
+    color: navy;
+}
+h2{
+    color: darkred;
+}
+.p1{
+    color: blue;
+    font-size: 20;
+}
+.p2{
+    color: green;
+    font-size: 18px;
+}
