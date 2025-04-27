@@ -1,0 +1,17 @@
+*{
+    font-family: sans-serif;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+    
+}
+.inner-image{
+    display: flex;
+    margin: 20px;
+}
+.inner-image img{
+    margin: 20px;
+}

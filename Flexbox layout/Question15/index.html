@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Grid Layout</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      margin:10px;
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .left-section, .right-section {
+      background-color: #e9caca;
+      padding: 20px;
+      border: 2px solid #f09191;
+    }
+
+    .left-section {
+      width: 60%;
+    }
+
+    .right-section {
+      width: 30%;
+    }
+
+    .grid-section {
+      margin-bottom: 20px;
+    }
+
+    .grid-section h3 {
+      margin-bottom: 10px;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .image-grid img {
+      width: 100%;
+      border-radius: 50%;
+      border: 2px solid #f89f9f;
+    }
+
+    .right-images {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .right-images img {
+      width: 100%;
+      border-radius: 5px;
+      border: 2px solid #f89f9f;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Left Section -->
+    <div class="left-section">
+      <div class="grid-section">
+      
+        <div class="image-grid">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+        </div>
+      </div>
+      <div class="grid-section">
+      
+        <div class="image-grid">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+        </div>
+      </div>
+      <div class="grid-section">
+      
+        <div class="image-grid">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+          <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-section">
+      
+      <div class="right-images">
+        <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+        <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+        <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+        <img src="https://www.tour70.com/wp-content/uploads/2019/09/audi-Q6-luxury-car-taxi-cab-on-rent-e1631995206150-1024x686.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
