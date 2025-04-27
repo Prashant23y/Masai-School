@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style> 
+    #box{
+        width:20vw;
+        height:50vh;
+        margin: auto;
+        background-color: rgb(252, 252, 252);
+        justify-content: center;
+        align-content: center;
+     
+    }
+    #d1{  
+        width:90%;
+        height: 70%;
+        background-color: rgb(255, 255, 255);
+        margin: auto;
+        justify-content: center;
+        align-content: center;
+        display:grid;
+        gap:10px;
+        padding:10px;
+        grid-template-columns: repeat(4, 1fr);  
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.19);   
+        padding: 30px;   
+    }
+    #d1>div{
+        height: 45px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.19);   
+        justify-content: center;
+        align-content: center;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+    }
+    #space{
+        grid-column: auto/span 4;
+    }
+    #d1>div:nth-of-type(5){
+        background-color: rgb(15, 13, 13);
+        color: aliceblue;
+    }
+    #d1>div:nth-of-type(9){
+        background-color: rgb(15, 13, 13);
+        color: aliceblue;
+    }
+    #d1>div:nth-of-type(13){
+        background-color: rgb(15, 13, 13);
+        color: aliceblue;
+    }
+    #d1>div:nth-of-type(14){
+        background-color: rgb(255, 0, 0);
+        color: aliceblue;
+    }
+    #d1>div:nth-of-type(16){
+        background-color: rgb(15, 13, 13);
+        color: aliceblue;
+    }
+    #d1>div:nth-of-type(17){
+        background-color: rgb(15, 13, 13);
+        color: aliceblue;
+    }
+    </style>
+</head>
+<body>
+    <center><h1><font color='#009999'>Masai Calculator</font></h1></center>
+<div id="box">
+    <div id='d1'>
+        <div id="space"></div>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>+</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>-</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>%</div>
+        <div>C</div>
+        <div>0</div>
+        <div>=</div>
+        <div>/</div>
+    </div>   
+</div>
+    
+</body>
+</html>
