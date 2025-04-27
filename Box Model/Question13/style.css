@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 20px;
+    background-color: cadetblue;
+    color: ghostwhite;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    
+}
+ul li{
+    
+    list-style: none;
+    margin: 10px;
+    font-family: 'Courier New', Courier, monospace;
+ 
+}
+p{
+    margin: 20px;
+    padding: 20px;
+}
+
+footer{
+    text-align: center;
+    background-color: blueviolet;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+}

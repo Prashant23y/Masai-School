@@ -1,0 +1,50 @@
+.block-element{
+    border: 2px solid red;
+    width: 600px;
+    height: 400px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.block-element div{
+    border: 2px solid green;
+    width: 200px;
+    height: 100px;
+    margin: 20px;
+    padding: 5px;
+    display: inline;
+}
+.inline-element span{
+    display: inline;
+    margin-top: 20px;
+  background-color: #fce4ec;
+  color: #d81b60;
+  padding: 5px;
+  border: 1px solid #d81b60;
+ 
+}
+.inline-block{
+    width: 500px;
+    height: auto;
+    border: 2px solid saddlebrown;
+    padding: 20px;
+}
+.inline-block span{
+    width: 300px;
+    height: 400px;
+    border: 5px solid red;
+    display: inline-block;
+    padding: 20px;
+    margin: 20px;
+}
+.none{
+    width: 500px;
+    height: 500px;
+    border: 2px solid greenyellow;
+}
+.none div{
+    width: 200px;
+    height: 200px;
+    border: 2px solid goldenrod;
+    margin: 2px;
+    display: none;
+}
