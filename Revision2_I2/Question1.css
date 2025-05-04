@@ -1,0 +1,33 @@
+article:nth-of-type(even) {
+    background-color: #f0f0f0;
+  }
+  
+  article p:last-of-type {
+    font-style: italic;
+  }
+  
+  article section > *:first-child {
+    font-weight: bold;
+  }
+  
+  p {
+    min-height: 1em;
+  }
+  p:after {
+    content: "";
+    display: inline-block;
+  }
+  p:only-child:empty {
+    display: none;
+  }
+  
+  .has-image h1 {
+    border: 2px solid gray;
+    padding: 5px;
+  }
+  
+  footer a {
+    color: orange;
+    text-decoration: underline;
+  }
+  
