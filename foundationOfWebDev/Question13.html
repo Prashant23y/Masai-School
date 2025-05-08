@@ -1,0 +1,73 @@
+<!-- Create a personal biography web page using HTML. This web page should include:
+
+A title for your page in the <head> section.
+A main heading (<h1>) introducing yourself.
+Three sections (<h2> headings): "About Me," "Hobbies," and "Contact Information."
+In each section, include a paragraph describing the topic, such as who you are, what hobbies you enjoy, and how people can contact you.
+In the "Contact Information" section, create a simple form with inputs for "Name," "Email," and a "Submit" button.
+You can make bio more appealing by usinng CSS ,Try figuring out how you can implement it . -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biography</title>
+    <style>
+        h1{ 
+            text-align: center;
+            border: solid rgb(89, 3, 3) 2px;
+        }
+
+        h2{
+            text-align: center;
+            border: solid rgba(41, 135, 147, 0.38) 2px;
+            width: 25%;
+            margin-left: 35%;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        p{
+            background-color: burlywood;
+            text-align: center;
+            font-size: larger;
+            font-style: italic;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        form{
+            text-align: center;
+            margin: 50px;
+            font-size: larger;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        Hello Everyone, myself Prashant Kumar
+    </h1>
+    <div>
+        <h2>
+            About Me
+        </h2>
+        <p>
+            I am Prashant Kumar, learning everyday new things about web Development in Masai School
+        </p>
+
+        <h2>Hobbies</h2>
+        <p>
+            I enjoy playing cricket and chess. In my free time I watch videos and read articles about tech world to keep myself updated.
+        </p>
+        <h2>Contact Information</h2>
+    </div>
+    <form action="">
+        <label for="name">Enter Your Name : </label>
+        <input type="text" name="" id="name" required>
+        <label for="email">Enter You email Id : </label>
+        <input type="email" name="" id="email" required>
+
+        <input type="submit" name="" id="">
+    </form>
+</body>
+</html>
