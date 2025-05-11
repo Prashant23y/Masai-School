@@ -1,0 +1,42 @@
+<!-- Design a simple HTML contact form that gathers a user’s name, email, gender, and a short message. Use appropriate form tags to create the following inputs:
+
+An <input> field for the user’s name.
+An <input> field for the email with type="email".
+A <select> dropdown for gender with options: "Male," "Female," and "Other."
+A <textarea> field for the message.
+Label each field clearly using <label>. Also, include a submit button at the end of the form. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+</head>
+<body>
+    <form action="">
+        <div>
+            <label for="text">Enter your Username :</label>
+            <input type="text" name="" id="text" required>
+        </div>
+        <div>
+            <label for="email">Enter your Email Id : </label>
+            <input type="email" name="" id="email" required>
+        </div>
+        <div>
+            <label for="gender">Gender :</label>
+            <select name="gender" id="gender-selection">
+                <option value="">Select your Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div>
+            <label for="textarea">Enter you message</label>
+            <textarea name="textarea" id="textarea"></textarea>
+        </div>
+        <input type="submit">
+    </form>
+</body>
+</html>

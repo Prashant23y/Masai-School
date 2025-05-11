@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, th, td 
+        {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        header{
+            background: linear-gradient(to bottom, rgb(7, 73, 243), rgb(255, 255, 255));
+            
+        }
+        footer{
+            background: linear-gradient(to bottom, rgb(0, 77, 242), rgba(17, 152, 186, 0.628));
+            height: 25px;
+        }
+        thead{
+            background-color: rgb(46, 46, 222);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Portfolio</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="projects">Projects</a>
+            <a href="@contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Welcome to My Portfolio</h2>
+            <p>This portfolio showcases my projects and provides information
+                about my background and contact details.
+            </p>
+        </section>
+        <section>
+            <h2>About</h2>
+            <p>Hello I'm a web developer passionate about building dynamic and responsive websites.
+                I enjoy creating user-friendly interfaces and working on challenging projects,
+            </p>
+        </section>
+        <section>
+            <h2>Projects</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Project Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Project Alpha</th>
+                        <td>A web-based tool for tracking project progress and managing tasks.</td>
+                        <td>2023</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Portfolio Site</th>
+                        <td>A personal website showcasing my work and skills as web developer</td>
+                        <td>2024</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Contact</h2>
+            <form action="submit">
+                <div>
+                    <label for="text">Name: <br>
+                        <input type="text" name="username" id="text">
+                    </label>
+                </div>
+                <div>
+                    <label for="email">Email:
+                        <br>
+                        <input type="email" name="" id="email">
+                    </label>
+                </div>
+                <div>
+                    <label for="textarea">Message: <br>
+                        <textarea name="textarea" id="textarea"></textarea>
+                    </label>
+                </div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>
