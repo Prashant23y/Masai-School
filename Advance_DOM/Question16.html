@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Grid</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      padding: 16px;
+      border-radius: 8px;
+      color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .in-stock {
+      background-color: #28a745; /* green */
+    }
+
+    .out-of-stock {
+      background-color: #dc3545; /* red */
+    }
+
+    .label {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Product Grid</h1>
+  <div class="grid" id="productGrid"></div>
+
+  <script>
+    const products = [
+      { id: 1, name: "Product A", price: 50, inStock: true },
+      { id: 2, name: "Product B", price: 30, inStock: false },
+      { id: 3, name: "Product C", price: 70, inStock: true },
+      { id: 4, name: "Product D", price: 20, inStock: false },
+      { id: 5, name: "Product E", price: 40, inStock: true },
+      { id: 6, name: "Product F", price: 60, inStock: false },
+    ];
+
+    const grid = document.getElementById("productGrid");
+
+    products.forEach(product => {
+      const card = document.createElement("div");
+      card.classList.add("card");
+      card.classList.add(product.inStock ? "in-stock" : "out-of-stock");
+
+      card.innerHTML = `
+        <h3>${product.name}</h3>
+        <p>Price: $${product.price}</p>
+        <div class="label">${product.inStock ? "In Stock" : "Out of Stock"}</div>
+      `;
+
+      grid.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Propagation Exploration</title>
+    <style>
+        div {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Event Propagation Exploration</h1>
+    <div id="parent-div">
+        <button id="first-btn">First Button</button>
+        <div id="second-div">
+            <button id="second-btn">Second Button</button>
+            <div id="third-div">
+                <button id="third-btn">Third Button</button>
+            </div><br>
+        </div><br>
+    </div>
+
+  <script>
+        // Select the buttons and divs
+        const firstBtn = document.getElementById('first-btn');
+        const secondBtn = document.getElementById('second-btn');
+        const thirdBtn = document.getElementById('third-btn');
+        const parentDiv = document.getElementById('parent-div');
+        const secondDiv = document.getElementById('second-div');
+        const thirdDiv = document.getElementById('third-div');
+
+        // Helper function for alerts
+        function showAlert(name, phase) {
+            alert(`${name} Clicked (${phase})`);
+        }
+
+        // Add event listeners for all divs and buttons in both phases
+
+        // Parent Div
+        parentDiv.addEventListener('click', (e) => showAlert('Parent Div', 'Bubbling'), false);
+        parentDiv.addEventListener('click', (e) => showAlert('Parent Div', 'Capturing'), true);
+
+        // Second Div
+        secondDiv.addEventListener('click', (e) => showAlert('Second Div', 'Bubbling'), false);
+        secondDiv.addEventListener('click', (e) => showAlert('Second Div', 'Capturing'), true);
+
+        // Third Div
+        thirdDiv.addEventListener('click', (e) => showAlert('Third Div', 'Bubbling'), false);
+        thirdDiv.addEventListener('click', (e) => showAlert('Third Div', 'Capturing'), true);
+
+        // First Button
+        firstBtn.addEventListener('click', (e) => showAlert('First Button', 'Bubbling'), false);
+        firstBtn.addEventListener('click', (e) => showAlert('First Button', 'Capturing'), true);
+
+        // Second Button
+        secondBtn.addEventListener('click', (e) => showAlert('Second Button', 'Bubbling'), false);
+        secondBtn.addEventListener('click', (e) => showAlert('Second Button', 'Capturing'), true);
+
+        // Third Button (innermost) - stop propagation in both phases
+        thirdBtn.addEventListener('click', (e) => {
+            showAlert('Third Button', 'Bubbling');
+            e.stopPropagation();
+        }, false);
+        thirdBtn.addEventListener('click', (e) => {
+            showAlert('Third Button', 'Capturing');
+            e.stopPropagation();
+        }, true);
+    </script>
+</body>
+</html>
