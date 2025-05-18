@@ -1,0 +1,148 @@
+<!-- Build a form with fields for Title and Body. When the form is submitted, send the data as a POST request to the JSONPlaceholder API (https://jsonplaceholder.typicode.com/posts). Display the server's response, including the newly created post ID, below the form.
+
+Key Requirements:
+Use the Fetch API to send the form data as JSON in the request body.
+Display the response from the server (post ID, title, and body) dynamically on the page.
+Ensure form validation: both fields must be non-empty before submission. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>New Post Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 30px;
+      background-color: #fafafa;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      max-width: 450px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    label {
+      margin-top: 10px;
+      display: block;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 16px;
+      background-color: #0066cc;
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #004d99;
+    }
+
+    .msg {
+      margin-top: 10px;
+      color: red;
+    }
+
+    .output-box {
+      background-color: #eef3f8;
+      padding: 15px;
+      border-radius: 6px;
+      max-width: 450px;
+      margin-top: 20px;
+    }
+
+    .output-box h3 {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Submit Post</h1>
+
+  <form id="postBox">
+    <label for="postTitle">Post Title:</label>
+    <input type="text" id="postTitle" name="postTitle" />
+
+    <label for="postContent">Content:</label>
+    <textarea id="postContent" name="postContent" rows="4"></textarea>
+
+    <button type="submit">Publish</button>
+    <div class="msg" id="alertBox"></div>
+  </form>
+
+  <div id="resultBox"></div>
+
+  <script>
+    const postBox = document.getElementById("postBox");
+    const alertBox = document.getElementById("alertBox");
+    const resultBox = document.getElementById("resultBox");
+
+    postBox.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      alertBox.textContent = "";
+      resultBox.innerHTML = "";
+
+      const titleVal = document.getElementById("postTitle").value.trim();
+      const bodyVal = document.getElementById("postContent").value.trim();
+
+      if (titleVal === "" || bodyVal === "") {
+        alertBox.textContent = "Please fill in both fields.";
+        return;
+      }
+
+      try {
+        const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            title: titleVal,
+            body: bodyVal
+          })
+        });
+
+        if (!res.ok) throw new Error("Server error. Try again.");
+
+        const post = await res.json();
+
+        resultBox.innerHTML = `
+          <div class="output-box">
+            <h3>Post Submitted!</h3>
+            <p><strong>ID:</strong> ${post.id}</p>
+            <p><strong>Title:</strong> ${post.title}</p>
+            <p><strong>Body:</strong> ${post.body}</p>
+          </div>
+        `;
+
+        postBox.reset();
+      } catch (err) {
+        alertBox.textContent = err.message;
+      }
+    });
+  </script>
+</body>
+</html>

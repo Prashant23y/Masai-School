@@ -1,0 +1,137 @@
+<!-- Problem Statement:
+Create a product listing page that fetches data from the FakeStoreAPI (https://fakestoreapi.com/products) and displays the product details in a grid format. Each product should show its image, title, price, and a button labeled "View Details". If the API call fails (e.g., an incorrect URL is used), display a user-friendly error message.
+
+Key Requirements:
+Fetch data from the API using the Fetch API and display the products dynamically.
+Implement error handling to display a message like "Failed to fetch products. Please try again later" when the API call fails.
+Use a try-catch block to handle errors with async/await. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Shop - Products</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 30px;
+      background-color: #f0f0f5;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .item-box {
+      background-color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .item-box:hover {
+      transform: scale(1.02);
+    }
+
+    .item-box img {
+      max-width: 100px;
+      max-height: 100px;
+      margin-bottom: 10px;
+      object-fit: contain;
+    }
+
+    .item-title {
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .item-price {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #009688;
+      margin-bottom: 10px;
+    }
+
+    .details-btn {
+      background-color: #444cf7;
+      color: white;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .details-btn:hover {
+      background-color: #2d3fc1;
+    }
+
+    .fail-text {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #d10000;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Available Products</h1>
+  <div id="shopArea"></div>
+
+  <script>
+    async function loadProducts() {
+      const shopArea = document.getElementById('shopArea');
+
+      try {
+        const res = await fetch('https://fakestoreapi.com/products');
+        if (!res.ok) throw new Error("Something went wrong");
+
+        const items = await res.json();
+        const grid = document.createElement('div');
+        grid.className = 'grid-layout';
+
+        items.forEach((item) => {
+          const box = document.createElement('div');
+          box.className = 'item-box';
+
+          box.innerHTML = `
+            <img src="${item.image}" alt="${item.title}" />
+            <div class="item-title">${item.title}</div>
+            <div class="item-price">$${item.price.toFixed(2)}</div>
+            <button class="details-btn">See More</button>
+          `;
+
+          grid.appendChild(box);
+        });
+
+        shopArea.innerHTML = '';
+        shopArea.appendChild(grid);
+
+      } catch (err) {
+        shopArea.innerHTML = `<div class="fail-text">Oops! Couldn't load products right now.</div>`;
+        console.error("Fetch error:", err);
+      }
+    }
+
+    // Auto load on page start
+    loadProducts();
+  </script>
+
+</body>
+</html>

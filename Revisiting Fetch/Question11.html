@@ -1,0 +1,75 @@
+<!-- Problem Statement:
+Create a webpage that fetches a list of users from the JSONPlaceholder API (https://jsonplaceholder.typicode.com/users) and displays their names in a list. Each user's name should be clickable, and clicking on a name should alert their email address.
+
+Key Requirements:
+Fetch the user data using a GET request.
+Display the names in an unordered list dynamically.
+Show an alert with the user's email when a name is clicked. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All Users</title>
+  <style>
+    body {
+      font-family: Verdana, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #444;
+    }
+    ul {
+      padding-left: 0;
+    }
+    li {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+    .user-link {
+      color: #0056b3;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .user-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>All Users</h1>
+  <ul id="userContainer"></ul>
+
+  <script>
+    // Getting users from API
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((data) => {
+        const userContainer = document.getElementById("userContainer");
+
+        data.forEach((person) => {
+          const listItem = document.createElement("li");
+          const link = document.createElement("a");
+
+          link.textContent = person.name;
+          link.href = "#";
+          link.className = "user-link";
+
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            alert("Email: " + person.email);
+          });
+
+          listItem.appendChild(link);
+          userContainer.appendChild(listItem);
+        });
+      })
+      .catch((err) => {
+        document.getElementById("userContainer").textContent =
+          "Could not fetch user data.";
+        console.error("Something went wrong!", err);
+      });
+  </script>
+</body>
+</html>
