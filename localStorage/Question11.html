@@ -1,0 +1,83 @@
+<!-- Create a webpage where users can enter notes into a text area and save them using localStorage. The notes should persist across page reloads,
+  and a "Load Notes" button should retrieve and display the saved notes in the text area.Additionally, provide a "Clear Notes" button to delete 
+  the stored notes from localStorage.
+
+Key Requirements:
+On page load, automatically check localStorage for saved notes and display them in the text area if they exist.
+Use proper validation to ensure no empty notes are saved. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes webpage</title>
+    <style>
+        body {
+            text-align: center;
+            font-size: larger;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-color: antiquewhite;
+        }
+        #noteIp {
+            width: 500px;
+            height: 100px;
+            margin: 15px;
+            background-color: azure;
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        button {
+            margin: 5px;
+            background-color: bisque;
+            padding: 8px 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>My Notes</h2><hr>
+    <textarea id="noteIp" placeholder="Enter your text here..."></textarea><br>
+    <button id="saveBtn" onclick="saveNotes()">Save Notes</button>
+    <button id="loadBtn" onclick="loadNotes()">Load Notes</button>
+    <button id="clearbtn" onclick="clearNotes()">Clear Notes</button>
+
+    <script>
+        const notes = document.getElementById('noteIp');
+
+        window.onload = function () {
+            const savedNote = localStorage.getItem('notes');
+            if (savedNote) {
+                notes.value = savedNote;
+            }
+        };
+
+        function saveNotes() {
+            const content = notes.value.trim();
+            if (content === "") {
+                alert("Cannot save empty note!");
+                return;
+            }
+            localStorage.setItem('notes', content);
+            alert("Notes saved successfully!");
+        }
+
+        function loadNotes() {
+            const savedNote = localStorage.getItem('notes');
+            if (savedNote) {
+                notes.value = savedNote;
+            } else {
+                alert("No notes found!");
+            }
+        }
+
+        function clearNotes() {
+            localStorage.removeItem('notes');
+            notes.value = "";
+            alert("Notes cleared!");
+        }
+    </script>
+</body>
+</html>

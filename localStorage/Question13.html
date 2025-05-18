@@ -1,0 +1,155 @@
+<!-- Create an enhanced Todo List application with the following features:
+
+Add tasks to a list.
+Mark tasks as completed (indicated visually).
+Remove tasks from the list.
+Search for tasks in real time using a search bar.
+Store tasks as a JSON array in localStorage, with each task object containing:
+A unique ID.
+Task text.
+Completion status.
+Key Requirements:
+Use localStorage to persist tasks, including their completion status.
+Allow users to search tasks by typing in the search bar, displaying only matching tasks. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Todo App</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        input[type="text"] {
+            padding: 0.5rem;
+            width: 65%;
+            font-size: 1rem;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+        #listContainer {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        .todo-item {
+            background: #f9f9f9;
+            padding: 0.75rem;
+            margin: 0.5rem auto;
+            width: 70%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .done {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+        #searchBar {
+            margin-top: 1rem;
+            width: 80%;
+            padding: 0.4rem;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>📋 My Personal Task List</h1>
+    <input type="text" id="taskInput" placeholder="What's on your mind?">
+    <button onclick="createTask()">Add Task</button>
+
+    <br>
+    <input type="text" id="searchBar" placeholder="Filter tasks..." oninput="searchTasks()">
+    <ul id="listContainer"></ul>
+
+    <script>
+        let myTasks = [];
+
+        window.onload = () => {
+            const saved = localStorage.getItem('myTodoData');
+            if (saved) {
+                myTasks = JSON.parse(saved);
+            }
+            displayTasks();
+        };
+
+        const saveData = () => {
+            localStorage.setItem('myTodoData', JSON.stringify(myTasks));
+        };
+
+        const createTask = () => {
+            const input = document.getElementById('taskInput');
+            const content = input.value.trim();
+
+            if (content === "") {
+                alert("Please enter something before adding.");
+                return;
+            }
+
+            const newTask = {
+                id: Date.now(),
+                text: content,
+                done: false
+            };
+
+            myTasks.push(newTask);
+            input.value = "";
+            saveData();
+            displayTasks();
+        };
+
+        const markDone = (id) => {
+            myTasks = myTasks.map(task =>
+                task.id === id ? { ...task, done: !task.done } : task
+            );
+            saveData();
+            displayTasks();
+        };
+
+        const removeTask = (id) => {
+            myTasks = myTasks.filter(task => task.id !== id);
+            saveData();
+            displayTasks();
+        };
+
+        const displayTasks = (filterList = myTasks) => {
+            const container = document.getElementById('listContainer');
+            container.innerHTML = "";
+
+            filterList.forEach(task => {
+                const li = document.createElement('li');
+                li.className = 'todo-item';
+                if (task.done) li.classList.add('done');
+
+                li.innerHTML = `
+                    <span onclick="markDone(${task.id})" style="cursor:pointer;">${task.text}</span>
+                    <div class="button-group">
+                        <button onclick="markDone(${task.id})">${task.done ? 'Undo' : 'Done'}</button>
+                        <button onclick="removeTask(${task.id})">Remove</button>
+                    </div>
+                `;
+                container.appendChild(li);
+            });
+        };
+
+        const searchTasks = () => {
+            const keyword = document.getElementById('searchBar').value.toLowerCase();
+            const filtered = myTasks.filter(task => task.text.toLowerCase().includes(keyword));
+            displayTasks(filtered);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!-- Build a Multi-User Shopping Cart application that allows:
+
+Users to log in by entering a unique username.
+Each user to have a separate shopping cart stored in localStorage. Cart data should include:
+Item name.
+Price.
+Quantity.
+Total cost per item.
+The cart display should dynamically update with the following functionalities:
+Add items to the cart.
+Edit the quantity of items.
+Remove items.
+Display the total cost for all items.
+Ensure cart data is stored as a JSON object where each key is the username, and the value is the corresponding cart data.
+Core Requirements:
+Use JSON.stringify() and JSON.parse() to handle structured cart data.
+Implement validation to ensure unique usernames and proper item quantities.
+Automatically load the user's cart when they log in and save changes in real-time. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multi-User Shopping Cart</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    h2 { margin-top: 0; }
+    .login-section, .cart-section, .add-section {
+      margin-bottom: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    input, button {
+      padding: 6px;
+      margin: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background: #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-section">
+    <h2>Login</h2>
+    <input type="text" id="usernameInput" placeholder="Enter username" />
+    <button onclick="loginUser()">Login</button>
+  </div>
+
+  <div id="app" style="display: none;">
+    <div class="add-section">
+      <h2>Add Item</h2>
+      <input type="text" id="itemName" placeholder="Item name" />
+      <input type="number" id="itemPrice" placeholder="Price" />
+      <input type="number" id="itemQty" placeholder="Quantity" />
+      <button onclick="addItem()">Add to Cart</button>
+    </div>
+
+    <div class="cart-section">
+      <h2 id="cartTitle">Cart</h2>
+      <table id="cartTable">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3"><strong>Total:</strong></td>
+            <td id="cartTotal">$0</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = '';
+    let cartData = {};
+
+    function loginUser() {
+      const username = document.getElementById('usernameInput').value.trim();
+      if (!username) return alert('Enter a valid username.');
+
+      currentUser = username;
+
+      const rawData = localStorage.getItem('cartData');
+      cartData = rawData ? JSON.parse(rawData) : {};
+
+      if (!cartData[currentUser]) {
+        cartData[currentUser] = [];
+        localStorage.setItem('cartData', JSON.stringify(cartData));
+      }
+
+      document.getElementById('app').style.display = 'block';
+      document.getElementById('cartTitle').innerText = `${currentUser}'s Cart`;
+      renderCart();
+    }
+
+    function addItem() {
+      const name = document.getElementById('itemName').value.trim();
+      const price = parseFloat(document.getElementById('itemPrice').value);
+      const qty = parseInt(document.getElementById('itemQty').value);
+
+      if (!name || isNaN(price) || isNaN(qty) || qty < 1 || price <= 0) {
+        return alert('Please enter valid item details.');
+      }
+
+      const userCart = cartData[currentUser];
+      const existing = userCart.find(item => item.itemName === name);
+
+      if (existing) {
+        existing.quantity += qty;
+      } else {
+        userCart.push({ itemName: name, price, quantity: qty });
+      }
+
+      saveCart();
+      renderCart();
+
+      // Clear inputs
+      document.getElementById('itemName').value = '';
+      document.getElementById('itemPrice').value = '';
+      document.getElementById('itemQty').value = '';
+    }
+
+    function renderCart() {
+      const tbody = document.querySelector('#cartTable tbody');
+      const userCart = cartData[currentUser];
+      tbody.innerHTML = '';
+
+      let total = 0;
+
+      userCart.forEach((item, index) => {
+        const row = document.createElement('tr');
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        row.innerHTML = `
+          <td>${item.itemName}</td>
+          <td>$${item.price}</td>
+          <td>
+            <input type="number" value="${item.quantity}" min="1" onchange="updateQty(${index}, this.value)">
+          </td>
+          <td>$${itemTotal.toFixed(2)}</td>
+          <td><button onclick="removeItem(${index})">Remove</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      document.getElementById('cartTotal').innerText = `$${total.toFixed(2)}`;
+    }
+
+    function updateQty(index, newQty) {
+      newQty = parseInt(newQty);
+      if (isNaN(newQty) || newQty < 1) {
+        alert('Invalid quantity!');
+        renderCart(); // Reset UI
+        return;
+      }
+      cartData[currentUser][index].quantity = newQty;
+      saveCart();
+      renderCart();
+    }
+
+    function removeItem(index) {
+      cartData[currentUser].splice(index, 1);
+      saveCart();
+      renderCart();
+    }
+
+    function saveCart() {
+      localStorage.setItem('cartData', JSON.stringify(cartData));
+    }
+  </script>
+
+</body>
+</html>

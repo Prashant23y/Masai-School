@@ -1,0 +1,70 @@
+<!-- Build a webpage with a dropdown menu to select between three themes: "Light," "Dark," and "Blue." The selected theme should immediately apply to the webpage and persist for the session using sessionStorage. Reset to "Light" when the session ends (e.g., the tab is closed).
+
+Key Requirements:
+The selected theme should change the background and text color dynamically.
+Use sessionStorage to store the user's selection and apply it on page reload (within the same session). -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .light-theme {
+            background-color: white;
+            color: black;
+        }
+        .dark-theme {
+            background-color: black;
+            color: white;
+        }
+        .blue-theme {
+            background-color: rgb(11, 11, 154);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Theme Switcher</h1>
+    <label for="themeSelectorDropdown">Choose Theme</label>
+    <select id="themeSelectorDropdown" onchange="changeTheme(this.value)">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="blue">Blue</option>
+    </select>
+</body>
+</html>
+
+<script>
+    const body = document.body;
+    const themeSelectorDropdown = document.getElementById('themeSelectorDropdown');
+
+    window.onload = function() {
+        const savedTheme = sessionStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+        themeSelectorDropdown.value = savedTheme;
+    }
+
+    function changeTheme(theme) {
+        applyTheme(theme);
+        sessionStorage.setItem('theme', theme);
+    }
+
+    function applyTheme(theme) {
+        body.classList.remove('light-theme', 'dark-theme', 'blue-theme');
+
+        switch (theme) {
+            case 'dark':
+                body.classList.add('dark-theme');
+                break;
+            case 'blue':
+                body.classList.add('blue-theme');
+                break;
+            case 'light':
+            default:
+                body.classList.add('light-theme');
+                break;
+        }
+    }
+</script>

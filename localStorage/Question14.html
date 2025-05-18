@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Preferences</title>
+  <style>
+    body.light {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    body.dark {
+      background-color: #121212;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <form id="preferencesForm">
+    <label for="theme">Theme:</label>
+    <select id="theme">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+
+    <label for="language">Language:</label>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="es">Spanish</option>
+    </select>
+
+    <label for="notifications">Notifications:</label>
+    <input type="checkbox" id="notifications">
+
+    <button type="submit">Save Preferences</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('preferencesForm');
+    const themeSelect = document.getElementById('theme');
+    const languageSelect = document.getElementById('language');
+    const notificationsCheckbox = document.getElementById('notifications');
+
+    const applyTheme = (themeValue) => {
+      document.body.classList.remove('light', 'dark');
+      document.body.classList.add(themeValue);
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const preferences = {
+        theme: themeSelect.value,
+        language: languageSelect.value,
+        notifications: notificationsCheckbox.checked
+      };
+
+      localStorage.setItem('preferences', JSON.stringify(preferences));
+      alert('Preferences Saved!');
+      applyTheme(preferences.theme);
+    });
+
+    window.onload = () => {
+      const savedPreferences = localStorage.getItem('preferences');
+      if (savedPreferences) {
+        const prefs = JSON.parse(savedPreferences);
+
+        themeSelect.value = prefs.theme;
+        languageSelect.value = prefs.language;
+        notificationsCheckbox.checked = prefs.notifications;
+
+        applyTheme(prefs.theme);
+      }
+    };
+  </script>
+</body>
+</html>
