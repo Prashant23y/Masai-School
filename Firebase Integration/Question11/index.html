@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Firebase Users</title>
+</head>
+<body>
+  <h1>Registered Users</h1>
+  <div id="display"></div>
+
+  <script>
+    const display = document.getElementById('display');
+    const apiURL = "https://user-2aaa6-default-rtdb.firebaseio.com/users.json";
+
+    // Function to fetch user data from Firebase
+    async function fetchData() {
+      try {
+        const response = await fetch(apiURL);
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const users = await response.json();
+        displayUsers(users);
+      } catch (err) {
+        console.error("Error fetching users:", err);
+        display.innerHTML = "<p style='color: red;'>Error fetching users.</p>";
+      }
+    }
+
+    // Function to display users on the page
+    function displayUsers(users) {
+      display.innerHTML = ""; // Clear previous content
+
+      // Check if users data exists
+      if (!users) {
+        display.innerHTML = "<p>No users found.</p>";
+        return;
+      }
+
+      // Convert the users object into an array and iterate over it
+      Object.values(users).forEach((user) => {
+        const userDiv = document.createElement('div');
+        userDiv.innerHTML = `
+          <p><strong>Name:</strong> ${user.name}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <hr/>
+        `;
+        display.appendChild(userDiv);
+      });
+    }
+
+    // Fetch and display users when the page loads
+    window.addEventListener('DOMContentLoaded', fetchData);
+  </script>
+</body>
+</html>
