@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Registration</title>
+</head>
+<body>
+  <h2>Registration</h2>
+  <form id="registrationForm">
+    <input type="text" name="text" id="textName" placeholder="Enter Your Name" />
+    <input type="email" name="email" id="emailText" placeholder="Enter Your Email" />
+    <input type="password" name="password" id="passwordText" placeholder="Enter Your Password" />
+    <button type="submit">Register</button>
+  </form>
+  <div class="message" id="message"></div>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    const messageDiv = document.getElementById('message');
+
+    function showMessage(message, type) {
+      messageDiv.textContent = message;
+      messageDiv.style.color = type === 'success' ? 'green' : 'red';
+    }
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault(); // prevent default form submission
+
+      const name = document.getElementById('textName').value.trim();
+      const email = document.getElementById('emailText').value.trim();
+      const password = document.getElementById('passwordText').value.trim();
+
+      if (!name || !email || !password) {
+        showMessage('Please fill in all fields.', 'error');
+        return;
+      }
+
+      try {
+        const res = await fetch('https://68330061c3f2222a8cb49c27.mockapi.io/product/User', {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password }),
+        });
+
+        if (!res.ok) {
+          throw new Error(`Error: ${res.status}`);
+        }
+
+        const data = await res.json();
+        showMessage('Registration Successful!', 'success');
+        form.reset();
+      } catch (error) {
+        showMessage('Registration Failed. Email may already exist.', 'error');
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>

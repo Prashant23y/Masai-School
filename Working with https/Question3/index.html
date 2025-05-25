@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    form {
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+    input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 20px;
+    }
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>User Dashboard</h1>
+
+  <form id="userForm">
+    <input type="text" id="name" placeholder="Enter Name" required />
+    <input type="email" id="email" placeholder="Enter Email" required />
+    <button type="submit">Add User</button>
+  </form>
+
+  <div id="message"></div>
+
+  <h2>Registered Users</h2>
+  <ul id="userList"></ul>
+
+  <script>
+    const form = document.getElementById("userForm");
+    const messageDiv = document.getElementById("message");
+    const userList = document.getElementById("userList");
+
+    const apiUrl = "https://68330061c3f2222a8cb49c27.mockapi.io/product/User";
+
+    // Function to fetch and display users
+    async function fetchUsers() {
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error("Failed to fetch users.");
+        }
+        const users = await response.json();
+        displayUsers(users);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        messageDiv.textContent = "Error fetching users.";
+        messageDiv.className = "error";
+      }
+    }
+
+    // Function to display users in the list
+    function displayUsers(users) {
+      userList.innerHTML = "";
+      users.forEach(user => {
+        const li = document.createElement("li");
+        li.textContent = `${user.name} (${user.email})`;
+        userList.appendChild(li);
+      });
+    }
+
+    // Function to add a new user
+    async function addUser(name, email) {
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, email })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to add user.");
+        }
+
+        const newUser = await response.json();
+        messageDiv.textContent = "User added successfully!";
+        messageDiv.className = "success";
+
+        // Add the new user to the list
+        const li = document.createElement("li");
+        li.textContent = `${newUser.name} (${newUser.email})`;
+        userList.appendChild(li);
+
+      } catch (error) {
+        console.error("Error adding user:", error);
+        messageDiv.textContent = error.message;
+        messageDiv.className = "error";
+      }
+    }
+
+    // Event listener for form submission
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault(); // Prevent form from submitting the default way
+
+      // Get input values
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+
+      // Validate fields
+      if (!name || !email) {
+        messageDiv.textContent = "Please fill in all fields.";
+        messageDiv.className = "error";
+        return;
+      }
+
+      // Check for duplicate email
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error("Failed to fetch users for validation.");
+        }
+        const users = await response.json();
+        const duplicate = users.find(user => user.email === email);
+        if (duplicate) {
+          messageDiv.textContent = "Email already exists.";
+          messageDiv.className = "error";
+          return;
+        }
+      } catch (error) {
+        console.error("Error checking for duplicate email:", error);
+        messageDiv.textContent = "Error validating email.";
+        messageDiv.className = "error";
+        return;
+      }
+
+      // Add the new user
+      await addUser(name, email);
+
+      // Reset the form
+      form.reset();
+    });
+
+    // Fetch and display users on page load
+    fetchUsers();
+  </script>
+</body>
+</html>
