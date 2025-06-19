@@ -1,0 +1,61 @@
+<!-- Create a webpage with the following elements:
+
+An <input> field where users can enter a color name.
+An <input> field where users can type text content.
+A <button> labeled "Change Background" for changing the background color of a <div>.
+A <button> labeled "Update Text" for updating the content of the <div>.
+A <div> with some initial text content, which can be updated based on user input (point 2).
+Tasks:
+When the "Change Background" button is clicked:
+Retrieve the color name entered in the first input field.
+Change the background color of the <div> to the entered color.
+If the entered value is invalid (not a recognized color), alert the user with "Invalid color name!".
+When the "Update Text" button is clicked:
+Retrieve the text entered in the second input field.
+Update the text content of the <div> with the entered text.
+If the input field is empty, do not update the text and display an alert saying "Please enter some text!". -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="colorInput" placeholder="Enter color">
+    <input type="text" id="txtInput" placeholder="Enter text...">
+    <button id="bgBtn">Change Background</button>
+    <button id="updateTxtBtn">Update Text</button>
+    <div id="container" style="width: 150px; height: 150px; background-color: lightsalmon; margin: 15px;">Hello I am a div!</div>
+</body>
+</html>
+<script>
+    const color = document.getElementById('colorInput');
+    const text = document.getElementById("txtInput");
+    const colorBtn = document.getElementById('bgBtn');
+    const txtBtn = document.getElementById('updateTxtBtn');
+    const container = document.getElementById('container');
+    
+        function isValidColor(color) {
+            return CSS.supports('color', color); // to check valid color or not 
+        }
+
+    colorBtn.addEventListener('click' , () => {
+        
+        if(isValidColor(color.value)){
+            container.style.backgroundColor = color.value;
+        }else{
+            alert( "Invalid color name!");
+        }
+    })
+
+    txtBtn.addEventListener('click' , () => {
+        let txt = text.value.trim(); // to check input field is empty or not
+        if(txt === ""){
+           alert("Please enter some text!");
+        }else{
+            container.textContent = txt;
+        }
+    })
+</script>

@@ -1,0 +1,51 @@
+<!-- Build a simple webpage with the following structure:
+
+A <ul> with three <li> items.
+A <button> with the text "Add Item".
+Write JavaScript to:
+
+Select the <ul> using querySelector and add a new <li> element with the text "New Item" whenever the button is clicked.
+Ensure each newly added <li> is styled with a bold font & blue colour if the sequence number of the li is odd and if 
+the sequence no. is even style the li with italic font & red colour. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <ul>
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+    </ul>
+
+     <button id="btn" onclick="addItems()">Add Item</button>
+</body>
+</html>
+<script>
+    const listItems = document.querySelector('ul');
+    const button = document.getElementById('btn');
+
+    function addItems(items){
+        const li = document.createElement('li');
+        li.innerText = "New Item";
+        
+        const totalItems = listItems.children.length + 1; // because we are adding one more item
+
+        li.style.color = totalItems % 2 !== 0 ? "blue" : "red";
+        totalItems % 2 !== 0 ? li.style.fontWeight = "bold" : li.style.fontStyle = "italic";
+        // if(totalItems % 2 !== 0){
+        //     li.style.color = "blue";
+        //     li.style.fontWeight = "bold";
+        // }else{
+        //     li.style.color = "red";
+        //     li.style.fontStyle = "italic";
+        // }
+        listItems.appendChild(li);
+
+    }
+</script>
