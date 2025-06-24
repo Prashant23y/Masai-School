@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Create a Post</h2>
+    <form id="postForm">
+        <input type="text" id="title" placeholder="Enter title"><br><br>
+        <textarea id="body" placeholder="Enter body"></textarea><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="response"></div>
+</body>
+</html>
+
+<script>
+const form = document.getElementById('postForm');
+const title = document.getElementById('title');
+const body = document.getElementById('body');
+const responseDiv = document.getElementById('response');
+
+form.addEventListener('submit', function (e) {
+    e.preventDefault(); // prevent form from refreshing the page
+
+    if (title.value.trim() === "" || body.value.trim() === "") {
+    alert("Both fields are required");
+    return;
+    }
+
+    // Creating data object to send
+    const data = {
+    title: title.value,
+    body: body.value
+    };
+
+    // Sending POST request to the API
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    headers: {
+        'Content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+    // Displaying the server's response
+    responseDiv.innerHTML = `
+        <h3>Post Created</h3>
+        <p><strong>ID:</strong> ${result.id}</p>
+        <p><strong>Title:</strong> ${result.title}</p>
+        <p><strong>Body:</strong> ${result.body}</p>
+    `;
+    })
+    .catch(error => {
+    // Handling error if request fails
+    responseDiv.textContent = "Error occurred while submitting the form.";
+    console.log(error);
+    });
+});
+</script>
