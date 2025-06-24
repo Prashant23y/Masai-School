@@ -1,0 +1,70 @@
+<!-- Create a webpage where users can enter notes into a text area and save them using localStorage. The notes should persist across page reloads, and a "Load Notes" button should retrieve and display the saved notes in the text area. Additionally, provide a "Clear Notes" button to delete the stored notes from localStorage.
+
+Key Requirements:
+On page load, automatically check localStorage for saved notes and display them in the text area if they exist.
+Use proper validation to ensure no empty notes are saved -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <textarea id="notesInp" placeholder="Enter notes here..."></textarea>
+    <button id="saveBtn">Save Notes</button>
+    <button id="loadBtn">Load Notes</button>
+    <button id="clearBtn">Clear Notes</button>
+    <p id="message"></p>
+</body>
+</html>
+<script>
+    const notesInp = document.getElementById('notesInp');
+    const saveBtn = document.getElementById('saveBtn');
+    const loadBtn = document.getElementById("loadBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const message = document.getElementById('message');
+
+    const storedNotes = "userNotes";
+    // load saved notes when page reloads
+
+    window.onload = () =>{
+        const savedNotes = localStorage.getItem(storedNotes);
+        if(savedNotes){
+            notesInp.value = savedNotes;
+        }
+    };
+
+    // save notes to localStorage
+
+    saveBtn.onclick = () =>{
+        const notes = notesInp.value.trim();
+        if(notes === ""){
+            message.textContent = "Can't save empty notes!";
+            return;
+        }
+        localStorage.setItem(storedNotes, notes);
+        message.textContent = "Notes saved successfully!";
+    };
+
+    // loadNotes button
+
+    loadBtn.onclick = () => {
+        const savedNotes = localStorage.getItem(storedNotes);
+        if(savedNotes){
+            notesInp.value = savedNotes;
+            message.textContent = "notes loaded successfully!"
+        }else{
+            message.textContent = "No saved notes"
+        }
+    };
+
+    // clearnotes button
+
+    clearBtn.onclick = () => {
+        localStorage.removeItem(storedNotes);
+        notesInp.value = "";
+        message.textContent = "All notes cleared!"
+    };
+</script>

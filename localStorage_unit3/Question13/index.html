@@ -1,0 +1,136 @@
+<!-- Create an enhanced Todo List application with the following features:
+
+Add tasks to a list.
+Mark tasks as completed (indicated visually).
+Remove tasks from the list.
+Search for tasks in real time using a search bar.
+Store tasks as a JSON array in localStorage, with each task object containing:
+A unique ID.
+Task text.
+Completion status.
+Key Requirements:
+Use localStorage to persist tasks, including their completion status.
+Allow users to search tasks by typing in the search bar, displaying only matching tasks. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px 0;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        li {
+            list-style: none;
+            margin: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Todo List</h2>
+    <input type="text" id="taskInp" placeholder="Enter your todo's here...">
+    <button id="addTask">Add Task</button>
+    <br>
+    <input type="text" id="searchTask" placeholder="Search tasks...">
+    <ul id="taskList"></ul>
+
+    <script>
+        let allTasks = [];
+
+        // Loading from localStorage on page load
+        window.onload = () => {
+            const savedTask = localStorage.getItem("myTodos");
+            if (savedTask) {
+                allTasks = JSON.parse(savedTask);
+            }
+            displayTasks();
+        }
+
+        // Saving allTasks array to localStorage
+        const saveTask = () => {
+            localStorage.setItem("myTodos", JSON.stringify(allTasks));
+        }
+
+        // Create and add a new task
+        const createTask = () => {
+            const inp = document.getElementById('taskInp');
+            const taskText = inp.value.trim();
+
+            if (taskText === "") return;
+
+            const newTask = {
+                id: Date.now(),
+                text: taskText,
+                completed: false
+            };
+
+            allTasks.push(newTask);
+            saveTask();
+            displayTasks();
+            inp.value = "";
+        }
+
+        // Toggle when task completed
+        const toggleTask = (id) => {
+            allTasks = allTasks.map(task =>
+                task.id === id ? { ...task, completed: !task.completed } : task
+            );
+            saveTask();
+            displayTasks(document.getElementById('searchTask').value);
+        }
+
+        // Delete task
+        const deleteTask = (id) => {
+            allTasks = allTasks.filter(task => task.id !== id);
+            saveTask();
+            displayTasks(document.getElementById('searchTask').value);
+        }
+
+        // Display filtered tasks
+        const displayTasks = (filter = "") => {
+            const list = document.getElementById('taskList');
+            list.innerHTML = "";
+
+            allTasks
+                .filter(task => task.text.toLowerCase().includes(filter.toLowerCase()))
+                .forEach(task => {
+                    const li = document.createElement('li');
+
+                    const span = document.createElement('span');
+                    span.textContent = task.text;
+                    span.className = task.completed ? "completed" : "";
+                    span.style.cursor = "pointer";
+                    span.onclick = () => toggleTask(task.id);
+
+                    const delBtn = document.createElement('button');
+                    delBtn.textContent = "Delete";
+                    delBtn.onclick = () => deleteTask(task.id);
+
+                    li.appendChild(span);
+                    li.appendChild(delBtn);
+                    list.appendChild(li);
+                });
+        }
+
+        // Event listeners
+        document.getElementById('addTask').addEventListener('click', createTask);
+        document.getElementById('searchTask').addEventListener('input', function () {
+            displayTasks(this.value);
+        });
+    </script>
+</body>
+</html>
