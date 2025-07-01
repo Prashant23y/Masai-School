@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unlimited Scrolling</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body{
+      background-color: burlywood;
+      font-family: sans-serif;
+    }
+    .gallery{
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      
+    }
+    .photoDiv{
+      background-color: wheat;
+      padding: 10px;
+      border-radius:  8px;
+      text-align: center;
+    }
+    .photoDiv img{
+      width: 100%;
+      height: auto;
+      border-radius: 7px;
+    }
+    .photoDiv div{
+      margin-top: 10px;
+      font-family: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery">
+    
+  </div>
+  <script>
+    let photos;  // global varibale
+    let currentIndex = 1;
+    let itemsPerPage = 8;
+    async function fetchData() {
+      let res = await fetch('https://jsonplaceholder.typicode.com/photos');
+      photos = await res.json();
+      
+      displayData();
+    }
+    fetchData();
+    function displayData(){
+      let start = currentIndex; //1  //10  //20
+      let end = start + itemsPerPage; //11 // 20 30
+      let limitedPhotos  = photos.slice(start, end);   //5000 [{}{}{}]
+      limitedPhotos.forEach((photo)=>{         
+        let photoElement = document.createElement('div');
+        photoElement.className = 'photoDiv';
+        photoElement.innerHTML = `
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBlyCIVcyFj7PQIW60CH-C_Xel-nZSwXXviw&s" alt="${photo.title}">
+       <div>${photo.title}</div>
+        `
+        document.querySelector('.gallery').append(photoElement);
+      });
+      currentIndex += itemsPerPage; //10
+    }
+    window.addEventListener('scroll', function(){
+      let scrolled = window.scrollY; 
+      console.log(Math.floor(scrolled), 'scrolled');
+      let scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      console.log(Math.floor(scrollable, 'scrollable'));
+      if(scrolled >= scrollable - 100){
+        displayData();
+      }
+    });
+  </script>
+</body>
+</html>
