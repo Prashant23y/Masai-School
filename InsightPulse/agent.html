@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+
+    <style>
+        *{
+            text-align: center;
+            background-color: #faebd7;
+        }
+        .agent-form{
+            color: rgb(38, 38, 173);
+            margin: 10px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        p{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: brown;
+            font-size: larger;
+            text-decoration: underline;
+            font-weight: bolder;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Welcome!</h2>
+    <p>Feedback Submission Form</p>
+    <form action="submit">
+     <div class="agent-form">
+        <label for="name">Enter your name :</label>
+        <input type="text" name="name" id="name" required>
+     </div>
+     <div class="agent-form">
+        <label for="comapany">Enter you company name :</label>
+        <input type="text" id="comapany" required>
+     </div>
+     <div class="agent-form">
+        <label for="department">Department :</label>
+        <select name="department" id="department">
+            <option value="Select">Choose Department</option>
+            <option value="SaaS">SaaS</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Consulting">Consulting</option>
+            <option value="other">Other</option>
+        </select>
+     </div>
+     <div class="agent-form">
+        <label for="number">Satisfaction Score :</label>
+        <input type="number" id="satisfaction-score" min="1" max="5" required>
+     </div>
+     <div class="agent-form">
+        <label for="number"></label>
+     </div>
+     <div class="agent-form">
+        <label for="nps">Net Promoter Score :</label>
+        <input type="number" id="nps" min="-100" max="100" required>
+     </div>
+     <div class="agent-form">
+        <button id="form-submission">Submit</button>
+    </div>
+    <div class="agent-form">
+        <label for="comment">Comment :</label>
+        <input type="text" maxlength="100">
+    </div>
+    </form>
+</body>
+</html>
+<script>
+    let url = "https://insightpulse-a0f3d-default-rtdb.asia-southeast1.firebasedatabase.app/";
+    
+</script>
