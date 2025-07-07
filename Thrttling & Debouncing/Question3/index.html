@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <img
+        id="imgSlider"
+        src="https://picsum.photos/600/400?random"
+        width="600"
+        height="400"
+      />
+      <div>
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn">Next</button>
+      </div>
+      <p id="slideNumView">Slide: 1</p>
+    </div>
+  </body>
+</html>
+
+<script>
+  const imgSlider = document.getElementById("imgSlider");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const slideNumView = document.getElementById("slideNumView");
+
+  let numSlider = 1;
+  let lastClickTime = 0;
+  let clickCount = 0;
+
+  function updateSlideNumber() {
+    slideNumView.textContent = `Slide: ${numSlider}`;
+  }
+
+  function changeImage(direction) {
+    const currTime = Date.now();
+
+    if (currTime - lastClickTime < 1000) {
+      clickCount++;
+      if (clickCount > 3) {
+        alert("Chill chill, loading it!!");
+      }
+      return;
+    }
+
+    lastClickTime = currTime;
+    clickCount = 1;
+
+    if (direction === "next") {
+      numSlider++;
+    } else if (direction === "prev" && numSlider > 1) {
+      numSlider--;
+    }
+
+    imgSlider.src = `https://picsum.photos/600/400?random=${Date.now()}`;
+    updateSlideNumber();
+  }
+
+  nextBtn.addEventListener("click", () => changeImage("next"));
+  prevBtn.addEventListener("click", () => changeImage("prev"));
+</script>

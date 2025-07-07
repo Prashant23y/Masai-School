@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="inpBox" placeholder="Enter movie name...." />
+    <div id="container"></div>
+  </body>
+</html>
+<script>
+  const searchInp = document.getElementById("inpBox");
+  const container = document.getElementById("container");
+  let debounceTimeout;
+
+  searchInp.addEventListener("input", () => {
+    clearTimeout(debounceTimeout);
+
+    debounceTimeout = setTimeout(() => {
+      const query = searchInp.value.trim();
+      if (query === "") {
+        container.innerHTML = "";
+        return;
+      }
+
+      fetch(`https://www.omdbapi.com/?apikey=d2b9658a&s=${encodeURIComponent(query)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.Response === "True") {
+            container.innerHTML = data.Search.map(
+              (movie) => `<div>${movie.Title}</div>`
+            ).join("");
+          } else {
+            container.innerHTML = "<div>No results found!</div>";
+          }
+        });
+    }, 500);
+  });
+</script>
