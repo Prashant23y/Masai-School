@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head><title>Register</title></head>
+<body>
+  <h2>Register</h2>
+  <form onsubmit="register(); return false;">
+    <input id="name" placeholder="Name"><br>
+    <input id="email" placeholder="Email"><br>
+    <input id="password" type="password" placeholder="Password"><br>
+    <button type="submit">Register</button>
+  </form>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBsD-KXzhYW7sQUmT2KF3I5uCTafW3S5Fk",
+      authDomain: "authorizationproject-149bc.firebaseapp.com",
+      databaseURL: "https://authorizationproject-149bc-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "authorizationproject-149bc",
+      storageBucket: "authorizationproject-149bc.appspot.com",
+      messagingSenderId: "474049719632",
+      appId: "1:474049719632:web:4ff21964519ba1df34d055",
+      measurementId: "G-9RW18DYEXK"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    function register() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const userRef = firebase.database().ref("users").push();
+      userRef.set({ name, email, password }, () => {
+        alert("Registration Successful! Please log in.");
+        window.location.href = "login.html";
+      });
+    }
+  </script>
+</body>
+</html>
