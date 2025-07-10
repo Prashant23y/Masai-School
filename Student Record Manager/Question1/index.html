@@ -1,11 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="" method = "get"></form>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Record Manager</title>
+  </head>
+
+  <body>
+    <h2>Student Record Manager</h2>
+    <form id="recordForm">
+      <label for="studentName">Name:</label>
+      <input type="text" id="studentName" placeholder="Enter Your Name" /><br />
+
+      <label for="studentBatch">Batch:</label>
+      <input
+        type="text"
+        id="studentBatch"
+        placeholder="Enter Your Batch"
+      /><br />
+
+      <label for="studentAge">Age:</label>
+      <input type="number" id="studentAge" placeholder="Enter Your Age" /><br />
+
+      <label for="studentScore">Score:</label>
+      <input
+        type="number"
+        id="studentScore"
+        placeholder="Enter Your Score"
+        min="0"
+        max="100"
+      /><br />
+
+      <button type="submit" id="submitBtn">Submit</button>
+      <span class="error" id="formError"></span>
+    </form>
+
+    <h3>Search Student By Name</h3>
+    <input type="text" id="nameSearch" placeholder="Search by name..." />
+
+    <div>
+      <button onclick="sortAgeWise()">Sort by Age</button>
+      <button onclick="sortByMarks()">Sort by Score</button>
+    </div>
+
+    <h4>Student Score Update</h4>
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Batch</th>
+          <th>Age</th>
+          <th>Score</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      const form = document.getElementById("recordForm");
+      const errorDisplay = document.getElementById("formError");
+      const tableBody = document.querySelector("tbody");
+      const nameFilter = document.getElementById("nameSearch");
+
+      let records = [];
+      let editIndex = -1;
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("studentName").value.trim();
+        const batch = document.getElementById("studentBatch").value.trim();
+        const age = parseInt(
+          document.getElementById("studentAge").value.trim()
+        );
+        const score = parseInt(
+          document.getElementById("studentScore").value.trim()
+        );
+
+        if (!name || !batch || isNaN(age) || isNaN(score)) {
+          errorDisplay.textContent = "Please fill all fields correctly.";
+          return;
+        }
+
+        if (age <= 0 || score < 0 || score > 100) {
+          errorDisplay.textContent = "Enter a valid Age and Score.";
+          return;
+        }
+
+        const studentObj = { name, batch, age, score };
+
+        if (editIndex === -1) {
+          records.push(studentObj);
+        } else {
+          records[editIndex] = studentObj;
+          editIndex = -1;
+          document.getElementById("submitBtn").textContent = "Submit";
+        }
+
+        form.reset();
+        errorDisplay.textContent = "";
+        updateTable();
+      });
+
+      function updateTable() {
+        tableBody.innerHTML = "";
+
+        const searchTerm = nameFilter.value.trim().toLowerCase();
+
+        const filteredRecords = records.filter((entry) =>
+          entry.name.toLowerCase().includes(searchTerm)
+        );
+
+        filteredRecords.forEach((entry, i) => {
+          const tr = document.createElement("tr");
+
+          tr.innerHTML = `
+                    <td>${entry.name}</td>
+                    <td>${entry.batch}</td>
+                    <td>${entry.age}</td>
+                    <td>${entry.score}</td>
+                    <td>
+                        <button onclick="editEntry(${i})">Edit</button>
+                        <button onclick="removeEntry(${i})">Delete</button>
+                    </td>
+                `;
+          tableBody.appendChild(tr);
+        });
+      }
+
+      function removeEntry(index) {
+        records.splice(index, 1);
+        updateTable();
+      }
+
+      function editEntry(index) {
+        const current = records[index];
+        document.getElementById("studentName").value = current.name;
+        document.getElementById("studentBatch").value = current.batch;
+        document.getElementById("studentAge").value = current.age;
+        document.getElementById("studentScore").value = current.score;
+
+        editIndex = index;
+        document.getElementById("submitBtn").textContent = "Update";
+      }
+
+      nameFilter.addEventListener("input", () => {
+        updateTable();
+      });
+
+      function sortAgeWise() {
+        records.sort((a, b) => a.age - b.age);
+        updateTable();
+      }
+
+      function sortByMarks() {
+        records.sort((a, b) => b.score - a.score);
+        updateTable();
+      }
+    </script>
+  </body>
 </html>
