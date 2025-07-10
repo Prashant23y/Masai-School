@@ -1,0 +1,146 @@
+:root {
+  --bg-color: #e8f0fe;
+  --text-color: #1a1a1a;
+  --card-bg: #ffffff;
+  --footer-color: #555;
+  --primary-btn: #3f51b5;
+  --primary-btn-hover: #303f9f;
+  --success-btn: #4caf50;
+  --success-btn-hover: #388e3c;
+  --theme-toggle-bg: #37474f;
+  --theme-toggle-hover: #263238;
+}
+
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --footer-color: #aaa;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.items-gird {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .items-gird {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .items-gird {
+    grid-template-columns: 1fr;
+  }
+}
+
+.character-card {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.character-card:hover {
+  transform: translateY(-5px);
+}
+
+.character-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.character-card h2 {
+  font-size: 1.3em;
+  margin: 12px 0;
+}
+
+.character-card p {
+  margin: 6px 0;
+  color: #444;
+}
+
+#page-info {
+  text-align: center;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+.nav-btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.nav-btn button {
+  padding: 10px 20px;
+  margin: 5px 10px;
+  background-color: var(--primary-btn);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.nav-btn button:hover {
+  background-color: var(--primary-btn-hover);
+}
+
+.nav-btn button:disabled {
+  background-color: #bbbbbb;
+  cursor: not-allowed;
+}
+
+#random-btn {
+  background-color: var(--success-btn);
+}
+
+#random-btn:hover {
+  background-color: var(--success-btn-hover);
+}
+
+#theme-toggle {
+  padding: 6px 14px;
+  background-color: var(--theme-toggle-bg);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 10px auto;
+  display: block;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#theme-toggle:hover {
+  background-color: var(--theme-toggle-hover);
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.9em;
+  color: var(--footer-color);
+}
+
+#clock {
+  font-weight: bold;
+}
+
+footer span {
+  color: #444;
+}

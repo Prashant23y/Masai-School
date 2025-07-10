@@ -6,6 +6,7 @@ function createOrderManager(){
             orders.push(order);
         },
         updateOrder(id, newStatus){
+            
             orders.forEach(order => {
                 if(this.id === id){
                     this.status = newStatus;
@@ -41,15 +42,7 @@ manager.addOrder({ id: 1, customerName: "Alice", items: [{ name: "Laptop", price
 manager.addOrder({ id: 2, customerName: "Bob", items: [{ name: "Phone", price: 500, quantity: 2 }], status: "shipped", createdAt: new Date("2024-03-02") });
 console.log(manager.filterOrders("pending"));
 
-// [
-//     {
-//       "id": 1,
-//       "customerName": "Alice",
-//       "items": [{ "name": "Laptop", "price": 1000, "quantity": 1 }],
-//       "status": "pending",
-//       "createdAt": "2024-03-01T00:00:00.000Z"
-//     }
-//   ]
+
 
 console.log(manager.getTotalRevenue());
 

@@ -29,7 +29,7 @@ Ensure that your HTML structure includes at least one <h1>, multiple <p> element
     const heading = document.getElementById('heading');
     const paras = document.getElementsByTagName('p');
     const container = document.querySelector('.container');
-
+    console.log(paras);
     heading.textContent = "Welcome to the DOM World!";
 
     for(let i = 0; i < paras.length; i++){
