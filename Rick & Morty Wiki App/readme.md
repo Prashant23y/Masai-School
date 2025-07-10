@@ -10,3 +10,12 @@ the Rick and Morty API > (https://rickandmortyapi.com/).
 
 # Deployed Link
 
+https://superlative-heliotrope-d467cf.netlify.app/
+
+#ScreenShot
+
+![screenshot](image-1.png)
+
+#Challenges I faced
+
+1. It is first time I deployed any website so it was little time taking.
