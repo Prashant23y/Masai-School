@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Search Dashboard</h1>
+
+        <input type="text" id="searchInp" placeholder="Type to search...">
+        <p id="loadtext" class="hidden">Searching...</p>
+
+        <div id="userDetails">
+            Keystrokes: <span id="strokeCount">0</span>
+            Search Triggered: <span id="searchCount">0</span>
+        </div>
+
+        <ul id="results"></ul>
+        <p id="noData" class="hidden">No matching data found</p>
+    </div>
+
+    <button id="topBtn" class="hidden"></button>
+
+    <script src="script.js"></script>
+</body>
+</html>
