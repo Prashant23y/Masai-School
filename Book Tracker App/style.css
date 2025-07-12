@@ -1,0 +1,59 @@
+body{
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+h2, h3{
+  color: #2d2b2b;
+}
+
+form{
+  margin-bottom: 20px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+input,button{
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #9d9696;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button{
+  background-color: rgb(5, 134, 255);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover{
+  background-color: rgb(10, 108, 212);
+}
+
+#bookList div{
+  background: whitesmoke;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+#bookList h3{
+  margin: 0 0 5px 0;
+}
+
+#errorMsg{
+  color: red;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
