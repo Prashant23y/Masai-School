@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Browser</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Movie Browser</h1>
+
+      <div class="features">
+        <select id="sortMovies">
+          <option value="">Sort By</option>
+          <option value="rating">Rating: High to Low</option>
+          <option value="title">Title: A-Z</option>
+        </select>
+
+        <select id="genreFilter">
+          <option value="">Filter by Genre</option>
+        </select>
+      </div>
+
+      <div id="movieGrid" class="grid"></div>
+
+      <div class="pagination">
+        <button id="prevBtn">Prev</button>
+        <span id="pageNum">Page 1</span>
+        <button id="nextBtn">Next</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
