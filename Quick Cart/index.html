@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Cart</title>
+</head>
+<body>
+    <form id="addItemform">
+        <input type="text" id="itemName" placeholder="Enter required item..." required>
+        <input type="number" id="itemQty" placeholder="quantity required.." required>
+        <input type="number" id="itemPrice" placeholder="Price" required>
+        <select id="category">
+            <option value="">---Select Category---</option>
+            <option value="">Vegetables</option>
+            <option value="">Fruits</option>
+            <option value="">Dairy</option>
+        </select>
+        <button type="submit">Add Item</button>
+    </form>
+
+    <div id="items"></div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"></script>
+</body>
+</html>
